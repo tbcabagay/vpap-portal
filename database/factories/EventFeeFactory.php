@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Event;
 use App\Models\EventFee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,9 @@ class EventFeeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'event_id' => Event::factory(),
+            'member_type_id' => fake()->randomElement(['regular', 'associate', 'student', 'senior', 'lifetime']),
+            'amount' => fake()->randomFloat(2, 100, 10000),
         ];
     }
 }

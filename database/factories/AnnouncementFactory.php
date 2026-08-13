@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Announcement;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,12 @@ class AnnouncementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(6),
+            'content' => fake()->paragraphs(3, true),
+            'is_published' => fake()->boolean(80),
+            'is_featured' => fake()->boolean(20),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

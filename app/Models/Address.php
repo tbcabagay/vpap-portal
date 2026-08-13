@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[WithoutTimestamps]
 class Address extends Model
 {
+    public const array TYPES = ['home', 'office'];
+
     /** @use HasFactory<AddressFactory> */
     use HasFactory;
 
