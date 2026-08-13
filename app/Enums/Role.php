@@ -4,30 +4,25 @@ namespace App\Enums;
 
 enum Role: string
 {
-    case Admin = 'admin';
     case Member = 'member';
+    case Admin = 'admin';
 
-    /**
-     * @return list<string>
-     */
-    public function permissionNames(): array
+    public function label(): string
     {
         return match ($this) {
-            self::Admin => array_column(Permission::cases(), 'value'),
-            self::Member => collect(Permission::cases())
-                ->filter(fn (Permission $permission) => str_starts_with($permission->value, 'viewAny ')
-                    || str_starts_with($permission->value, 'view '))
-                ->push(
-                    Permission::CreateAddress,
-                    Permission::UpdateAddress,
-                    Permission::CreateAttendance,
-                    Permission::UpdateAttendance,
-                    Permission::CreateMember,
-                    Permission::UpdateMember,
-                )
-                ->pluck('value')
-                ->values()
-                ->all(),
+            self::Member => 'Member',
+            self::Admin => 'Admin',
         };
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function toArray(): array
+    {
+        return [
+            'key' => $this->value,
+            'label' => $this->label(),
+        ];
     }
 }

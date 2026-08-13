@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\MemberDiscountType;
+use App\Enums\MemberType;
 use App\Models\Institution;
 use App\Models\Member;
 use App\Models\User;
@@ -33,8 +35,8 @@ class MemberFactory extends Factory
             'is_employed' => fake()->boolean(70),
             'company_name' => fake()->optional(0.6)->company(),
             'position' => fake()->optional(0.6)->jobTitle(),
-            'member_type_id' => fake()->randomElement(['regular', 'associate', 'student', 'senior', 'lifetime', 'honorary']),
-            'member_discount_type_id' => fake()->optional(0.3)->randomElement(['senior', 'student', 'early_bird', 'lifetime']),
+            'member_type_id' => fake()->randomElement(MemberType::cases())->value,
+            'member_discount_type_id' => fake()->optional(0.3)->randomElement(MemberDiscountType::cases())?->value,
             'joined_at' => (string) fake()->numberBetween(1970, 2026),
             'license_number' => fake()->randomElement([null, fake()->unique()->numerify('#########')]),
             'license_expiry_date' => fake()->optional(0.8)->dateTimeBetween('now', '+5 years'),

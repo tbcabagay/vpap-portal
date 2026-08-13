@@ -2,6 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Enums\AttendanceType;
+use App\Enums\MemberDiscountType;
+use App\Enums\MemberType;
+use App\Enums\PaymentType;
 use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\Member;
@@ -24,10 +28,10 @@ class AttendanceFactory extends Factory
             'member_id' => Member::factory(),
             'event_id' => Event::factory(),
             'sponsor_id' => fake()->boolean(50) ? Sponsor::factory() : null,
-            'attendance_type_id' => fake()->randomElement(['full', 'partial', 'online', 'guest']),
-            'member_discount_type_id' => fake()->optional(0.3)->randomElement(['senior', 'student', 'early_bird', 'lifetime']),
-            'member_type_id' => fake()->randomElement(['regular', 'associate', 'student', 'senior', 'lifetime']),
-            'payment_type_id' => fake()->randomElement(['cash', 'bank_transfer', 'gcash', 'card', 'sponsorship']),
+            'attendance_type_id' => fake()->randomElement(AttendanceType::cases())->value,
+            'member_discount_type_id' => fake()->optional(0.3)->randomElement(MemberDiscountType::cases())?->value,
+            'member_type_id' => fake()->randomElement(MemberType::cases())->value,
+            'payment_type_id' => fake()->randomElement(PaymentType::cases())->value,
             'membership_fee' => fake()->randomFloat(2, 0, 10000),
             'event_fee' => fake()->randomFloat(2, 0, 10000),
             'discount_fee' => fake()->randomFloat(2, 0, 5000),

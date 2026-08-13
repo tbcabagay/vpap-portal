@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\EventType;
+use App\Enums\InvitationType;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,8 +20,8 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'type_id' => fake()->randomElement(['conference', 'seminar', 'workshop', 'webinar', 'convention', 'assembly']),
-            'invitation_type_id' => fake()->randomElement(['open', 'invitation_only', 'members_only']),
+            'type_id' => fake()->randomElement(EventType::cases())->value,
+            'invitation_type_id' => fake()->randomElement(InvitationType::cases())->value,
             'title' => fake()->sentence(5),
             'location' => fake()->randomElement([
                 fake()->city().', '.fake()->country(),
