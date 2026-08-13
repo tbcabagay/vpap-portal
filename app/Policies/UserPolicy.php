@@ -2,22 +2,21 @@
 
 namespace App\Policies;
 
-use App\Models\Country;
 use App\Models\User;
 use App\Policies\Concerns\HandlesRoles;
 
-class CountryPolicy
+class UserPolicy
 {
     use HandlesRoles;
 
     public function viewAny(User $user): bool
     {
-        return true;
+        return false;
     }
 
-    public function view(User $user, Country $country): bool
+    public function view(User $user, User $target): bool
     {
-        return true;
+        return false;
     }
 
     public function create(User $user): bool
@@ -25,12 +24,12 @@ class CountryPolicy
         return false;
     }
 
-    public function update(User $user, Country $country): bool
+    public function update(User $user, User $target): bool
     {
         return false;
     }
 
-    public function delete(User $user, Country $country): bool
+    public function delete(User $user, User $target): bool
     {
         return false;
     }

@@ -4,62 +4,33 @@ namespace App\Policies;
 
 use App\Models\MemberServiceYear;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Policies\Concerns\HandlesRoles;
 
 class MemberServiceYearPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+    use HandlesRoles;
+
     public function viewAny(User $user): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(User $user, MemberServiceYear $memberServiceYear): bool
     {
-        return false;
+        return $user->member?->id === $memberServiceYear->member_id;
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
     public function create(User $user): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, MemberServiceYear $memberServiceYear): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, MemberServiceYear $memberServiceYear): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, MemberServiceYear $memberServiceYear): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, MemberServiceYear $memberServiceYear): bool
     {
         return false;
     }
